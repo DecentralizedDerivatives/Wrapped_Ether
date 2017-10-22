@@ -17,10 +17,10 @@ contract Wrapped_Ether{
     tokenValue = _tokenValue * _multiplier; //token value is in Wei.  So 1000000000000000000 * 1 is an Ether
     name = _name;
  }
- function CreateToken(uint256 _value) payable{
-  require(msg.value == SafeMath.mul(1e18,_value));
-   balances[msg.sender] = SafeMath.div(_value * 1e18,tokenValue);
-   totalSupply = totalSupply + SafeMath.div(_value* 1e18,tokenValue);
+ function CreateToken() payable{
+   require(msg.value > 0);
+   balances[msg.sender] = balances[msg.sender] + SafeMath.div(msg.value,tokenValue);
+   totalSupply = totalSupply + SafeMath.div(msg.value,tokenValue);
    value = tokenValue * totalSupply;
   }
   
